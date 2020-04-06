@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Background Page</title>
+
+  <script>(function () {
+  'use strict';
+
+  var browserOrChrome = typeof chrome !== 'undefined' && chrome.runtime ? chrome : typeof browser !== 'undefined' && browser;
+
+  function getPrivateWindowId () {
+    return new Promise(function (resolve) {
+      browserOrChrome.windows.getAll(function (windows) {
+        for (var i = 0; i < windows.length; i++) {
+          if (windows[i].incognito) {
+            resolve(windows[i].id);
+            return;
+          }
+        }
+        resolve(null);
+      });
+    });
+  }
+
+  function getCurrentTabData () {
+    return new Promise(function (resolve) {
+      browserOrChrome.tabs.query({
+        active: true,
+        currentWindow: true
+      }, function (tabs) {
+        resolve(tabs[0]);
+      });
+    });
+  }
+
+  function reopenInPrivate () {
+    Promise.all([
+      getPrivateWindowId(),
+      getCurrentTabData()
+    ]).then(function (result) {
+      var privateWindowId = result[0];
+      var currentTabData = result[1] || {};
+      var url = currentTabData.pendingUrl || currentTabData.url;
+      if (!url || url.startsWith('about:') || url.startsWith('chrome:')) {
+        url = 'about:blank';
+      } else {
+        browserOrChrome.tabs.remove(currentTabData.id);
+      }
+      if (privateWindowId) {
+        browserOrChrome.tabs.create({
+          windowId: privateWindowId,
+          url: url
+        });
+      } else {
+        browserOrChrome.windows.create({
+          incognito: true,
+          url: url
+        });
+      }
+    });
+  }
+
+  browserOrChrome.browserAction.onClicked.addListener(reopenInPrivate);
+})();
+</script>
+</head>
+
+<body></body>
+
+</html>

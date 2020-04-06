@@ -1,0 +1,49 @@
+{
+  "manifest_version": 2,
+  "name": "Reopen in Private",
+  "description": "Reopens the current tab into a private window",
+  "author": "Carlos Jeurissen",
+  "homepage_url": "https://apps.jeurissen.co/",
+  "content_security_policy": "default-src 'none'; child-src 'none'; connect-src 'none'; font-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; object-src 'none'; prefetch-src 'none'; worker-src 'none'; img-src 'none'; script-src 'self' 'sha384-gf5m2Ftt+CCR5yvQbiovkAWF5B7bj8jZJl3WTO05QvmM2bR+PVLkH5fjb06zbmBL'; script-src-elem 'sha384-gf5m2Ftt+CCR5yvQbiovkAWF5B7bj8jZJl3WTO05QvmM2bR+PVLkH5fjb06zbmBL'; script-src-attr 'none'; style-src 'none'; style-src-elem 'none'; style-src-attr 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests; require-sri-for script style; sandbox allow-same-origin allow-scripts",
+  "developer": {
+    "name": "Carlos Jeurissen",
+    "url": "https://apps.jeurissen.co/"
+  },
+  "version": "1.0.0",
+  "minimum_chrome_version": "23",
+  "minimum_opera_version": "15",
+  "applications": {
+    "gecko": {
+      "id": "reopen-in-private@apps.jeurissen.co"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "reopen-in-private@apps.jeurissen.co"
+    }
+  },
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
+  "icons": {
+    "16": "icon.svg",
+    "32": "icon.svg",
+    "48": "icon.svg",
+    "96": "icon.svg",
+    "128": "icon.svg",
+    "256": "icon.svg"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.svg",
+      "19": "icon.svg",
+      "24": "icon.svg",
+      "32": "icon.svg",
+      "38": "icon.svg"
+    }
+  },
+  "permissions": [
+    "activeTab"
+  ]
+}

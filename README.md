@@ -1,2 +1,14 @@
-# cj-we-reopen-in-private
-WebExtension which allows you to reopen current tab into a private window
+Reopen in private
+=================
+
+### Preparation
+```sh
+$ yarn install
+```
+
+### Pack extension
+The packed extension will be created in the dist_packed folder
+
+```sh
+$ yarn build
+```
